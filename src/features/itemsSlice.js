@@ -8,9 +8,9 @@ const initialState = {
     errorMessage: ""
 };
 
-export const getItems = createAsyncThunk("items/getItems", async (_, thunkAPI) => {
+export const getItems = createAsyncThunk("items/getItems", async (itemsOwnerId, thunkAPI) => {
     try {
-        const response = await axios.get("http://10.0.0.238:5000/api/item", {
+        const response = await axios.get(`http://10.0.0.238:5000/api/item?itemsOwnerId=${itemsOwnerId}`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
