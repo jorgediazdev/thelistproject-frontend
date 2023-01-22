@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "http://localhost:5000";
+
 const initialState = {
     items: [],
     isLoading: false,
@@ -10,7 +12,7 @@ const initialState = {
 
 export const getItems = createAsyncThunk("items/getItems", async (itemsOwnerId, thunkAPI) => {
     try {
-        const response = await axios.get(`http://10.0.0.238:5000/api/item?itemsOwnerId=${itemsOwnerId}`, {
+        const response = await axios.get(`${baseURL}/api/item?itemsOwnerId=${itemsOwnerId}`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
@@ -26,7 +28,7 @@ export const getItems = createAsyncThunk("items/getItems", async (itemsOwnerId, 
 
 export const createItem = createAsyncThunk("items/postItem", async (item, thunkAPI) => {
     try {
-        const response = await axios.post("http://10.0.0.238:5000/api/item", item, {
+        const response = await axios.post(`${baseURL}/api/item`, item, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
@@ -42,7 +44,7 @@ export const createItem = createAsyncThunk("items/postItem", async (item, thunkA
 
 export const deleteItem = createAsyncThunk("items/deleteItem", async (id, thunkAPI) => {
     try {
-        const response = await axios.delete(`http://10.0.0.238:5000/api/item/${id}`, {
+        const response = await axios.delete(`${baseURL}/api/item/${id}`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }

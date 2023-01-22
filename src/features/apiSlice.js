@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "http://localhost:5000";
+
 const initialState = {
     friends: [],
     isLoading: false,
@@ -10,7 +12,7 @@ const initialState = {
 
 export const getFriends = createAsyncThunk("api/getFriends", async (_, thunkAPI) => {
     try {
-        const response = await axios.get("http://localhost:5000/api/user/friends", {
+        const response = await axios.get(`${baseURL}/api/user/friends`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
