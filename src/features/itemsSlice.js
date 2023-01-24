@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseURL = "http://localhost:5000";
+const baseURL = process.env.ENVIRONMENT === "production" ? "http://thelistproject.com/api" : "http://localhost:5000";
 
 const initialState = {
     items: [],
