@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseURL = process.env.ENVIRONMENT === "production" ? "http://thelistproject.com/api" : "http://localhost:5000";
-
 const initialState = {
     items: [],
     isLoading: false,
@@ -12,7 +10,7 @@ const initialState = {
 
 export const getItems = createAsyncThunk("items/getItems", async (itemsOwnerId, thunkAPI) => {
     try {
-        const response = await axios.get(`${baseURL}/api/item?itemsOwnerId=${itemsOwnerId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/item?itemsOwnerId=${itemsOwnerId}`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
@@ -28,7 +26,7 @@ export const getItems = createAsyncThunk("items/getItems", async (itemsOwnerId, 
 
 export const createItem = createAsyncThunk("items/postItem", async (item, thunkAPI) => {
     try {
-        const response = await axios.post(`${baseURL}/api/item`, item, {
+        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/item`, item, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
@@ -44,7 +42,7 @@ export const createItem = createAsyncThunk("items/postItem", async (item, thunkA
 
 export const deleteItem = createAsyncThunk("items/deleteItem", async (id, thunkAPI) => {
     try {
-        const response = await axios.delete(`${baseURL}/api/item/${id}`, {
+        const response = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/item/${id}`, {
             headers: {
                 "Authorization": `Bearer ${thunkAPI.getState().auth.user.token}`
             }
